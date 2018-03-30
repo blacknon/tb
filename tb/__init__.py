@@ -32,22 +32,24 @@ def to_tbl(lines,args):
             line = line.rstrip()
             line_array = re.split(tb_separator,line)
             length = len(line_array)
-            if b_lenght == length:                
-                tb_list[i].append(line_array)
-            else:
+            if b_lenght != length or length < 2:
                 i=i+1
                 tb_list.insert(i,[])
-                tb_list[i].append(line_array)
+            tb_list[i].append(line_array)
             b_lenght = len(line_array)
 
         x = 0
         for e in tb_list:
             if len(e) == 1:
-                print(lines[x])
-                x=+1
+                if len(e[0][0]) == 0:
+                    string = ''
+                else:
+                    string = lines[x]
+                print(string.rstrip())
+                x += 1
             else:
                 print(tabulate(e,tablefmt=tb_format,headers=tb_header))
-                x=+len(e) + 1
+                x += len(e) + 1
 
 def main():
     parser = argparse.ArgumentParser(description='Table making from list.')
