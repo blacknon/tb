@@ -6,7 +6,6 @@
 # TODO(blacknon): 標準入力から受け付けるよう修正する
 # TODO(blacknon): 指定した配列をヘッダにするオプションを追加
 
-# import
 import sys
 import re
 import select
@@ -27,7 +26,7 @@ def to_tbl(lines, args):
     tb_header = args.header
     tb_format = args.format
 
-    if args.article == False:
+    if args.article is False:
         tb_list = []
         for line in lines:
             line = line.rstrip()
@@ -42,7 +41,7 @@ def to_tbl(lines, args):
             line_array = re.split(tb_separator, line)
             length = len(line_array)
             if b_lenght != length or length < 2:
-                i = i+1
+                i = i + 1
                 tb_list.insert(i, [])
             tb_list[i].append(line_array)
             b_lenght = len(line_array)
@@ -64,14 +63,24 @@ def to_tbl(lines, args):
 def main():
     parser = argparse.ArgumentParser(description='Table making from list.')
     parser.add_argument('-s', '--separator', default=' ', type=str,
-                        help='Specify a set of characters to be used to delimit columns.')
+                        help='Specify a set of characters to be used to delimited columns.')
     parser.add_argument('-l', '--header', default='',
                         choices=['keys', 'firstrow'], help='table header')
-    parser.add_argument('-f', '--format', default='orgtbl', choices=[
-                        'simple', 'orgtbl', 'plain', 'grid', 'fancy-grid', 'pipe', 'jira', 'mediawiki', 'html', 'latex'], type=str, help='table format.')
+
+    parser.add_argument('-f', '--format', default='orgtbl',
+                        choices=[
+                            'simple', 'orgtbl', 'github', 'plain', 'grid',
+                            'fancy-grid', 'pipe', 'jira', 'mediawiki',
+                            'html', 'latex'
+                        ],
+                        type=str, help='table format.')
     parser.add_argument('--article', dest='article',
-                        default=False, action='store_true', help='article flag')
-    if is_stdin():
+                        default=False, action='store_true',
+                        help='article flag')
+
+
+>>>>>> > refs/remotes/origin/master
+   if is_stdin():
         args = parser.parse_args()
         lines = sys.stdin.readlines()
     else:
