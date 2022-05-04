@@ -78,9 +78,7 @@ def main():
                         default=False, action='store_true',
                         help='article flag')
 
-
->>>>>> > refs/remotes/origin/master
-   if is_stdin():
+    if is_stdin():
         args = parser.parse_args()
         lines = sys.stdin.readlines()
     else:
